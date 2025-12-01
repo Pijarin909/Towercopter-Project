@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Towercopter Control</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div style="
+        width: 100%;
+        background: #FFC107;
+        padding: 25px 0;
+        text-align: left;
+        font-size: 34px;
+        font-weight: 700;
+        color: white;
+        ">
+        Towercopter Control Kelompok 1
+    </div>
+
+    <!-- STATUS DAN TOMBOL CONNECT -->
+    <div style="position: absolute; top: 25px; right: 40px; display: flex; align-items: center; gap: 15px;">
+        <!-- Status Indicator -->
+        <div id="statusIndicator" class="status-box disconnected">
+            Tidak Terhubung
+        </div>
+        
+        <!-- Tombol Connect -->
+        <button id="connectBtn" class="connect-btn" onclick="connectSerial()">
+            Connect ESP32
+        </button>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="container">
+
+        <!-- LEFT: DRONE ANIMATION -->
+        <div class="left-section">
+            <div class="drone-animation-container">
+                <!-- Container untuk drone dan indikator -->
+                <div class="drone-scene">
+                    <!-- Area penerbangan drone -->
+                    <div class="flight-area">
+                        <!-- GIF Drone yang akan naik-turun -->
+                        <div id="droneObject" class="drone-object">
+                            <img src="Drone Flying.gif" alt="Drone Flying" class="drone-gif">
+                        </div>
+                    </div>
+                    
+                    <!-- Display ketinggian saat ini -->
+                    <div id="currentHeight" class="current-height-display">
+                        <div class="height-value">25.0 cm</div>
+                        <div class="height-label">Ketinggian Saat Ini</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MIDDLE PANEL (PID + SETPOINT) -->
+        <div class="control-panel">
+
+            <!-- PID SETTINGS BOX -->
+            <div class="card pid-box">
+                <h3>PID Controller</h3>
+
+                <label class="label">Kp:</label>
+                <input id="kp" type="number" value="4.0">
+
+                <label class="label">Ki:</label>
+                <input id="ki" type="number" value="0.8">
+
+                <label class="label">Kd:</label>
+                <input id="kd" type="number" value="1.5">
+
+                <button class="btn" onclick="kirimPID()">Kirim PID</button>
+            </div>
+
+            <!-- SETPOINT BOX -->
+            <div class="card setpoint-box">
+                <h3>Input Ketinggian (CM)</h3>
+
+                <input id="setpoint" type="number" value="25" min="0" max="100">
+                <button class="btn" onclick="kirimSetpoint()">Kirim Setpoint</button>
+            </div>
+
+        </div>
+
+        <!-- RIGHT: GRAPH -->
+        <div class="right-section">
+            <div class="chart-container">
+                <!-- Grafik akan diisi lewat JS (Chart.js) -->
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
